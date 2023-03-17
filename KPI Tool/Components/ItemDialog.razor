@@ -1,0 +1,44 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudTextField @bind-Value="name" @bind-Text="name" Label="Card text" />
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="cancel">Cancel</MudButton>
+        <MudButton Color="Color.Error" OnClick="delete">Delete card</MudButton>
+        <MudButton Color="Color.Info" OnClick="update">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    public string name = "";
+
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    [Parameter] public TaskDropItem item { get; set; } = new TaskDropItem("", "-1", 0, 0);
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            name = item.Name;
+            StateHasChanged();
+        }
+    }
+
+    private void cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    private void update()
+    {
+        item.Name = name;
+        MudDialog.Close(DialogResult.Ok(JsonConvert.SerializeObject(item)));
+    }
+
+    private void delete()
+    {
+        item.InZone = "-1";
+        MudDialog.Close(DialogResult.Ok(JsonConvert.SerializeObject(item)));
+    }
+}

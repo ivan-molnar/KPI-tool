@@ -1,0 +1,141 @@
+﻿<h4>@indicator.Title</h4>
+
+<MudDropContainer T="TaskDropItem" Items="indicator.Items" ItemsSelector="@((item,dropzone) => item.InZone == dropzone)" ItemDropped="ItemUpdated" Class="d-flex flex-wrap flex-grow-1">
+    <ChildContent>
+        <MudChart ChartType="ChartType.Pie" LegendPosition="Position.Right" InputData="@indicator.Data" InputLabels="@indicator.Labels" Width="300px" Height="300px" />
+
+        @foreach (var zone in indicator.Zones){
+            <MudDropZone T="TaskDropItem" Identifier="@zone.Id" style="max-height:400px;" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1 overflow-auto" AllowReorder="true">
+                <MudText Typo="Typo.h6" Class="mb-4">@zone.Name</MudText>
+                @*<MudTextField Value="@zone.Name" onchange="() => { indicatorChanged.InvokeAsync(indicator); }" Variant="Variant.Text" Margin="Margin.Dense"></MudTextField>*@
+
+                <div>
+                    <MudButton OnClick="() => addItem(zone.Id)" Variant="Variant.Outlined" Color="Color.Info">Add item</MudButton>
+                    <MudButton OnClick="() => delZone(zone.Id)" Variant="Variant.Outlined" Color="Color.Error">Delete Zone</MudButton>
+                </div>
+            </MudDropZone>
+        }
+
+    </ChildContent>
+    <ItemRenderer>
+        <MudPaper @onclick="() => updateItem(context)" Elevation="25" Class="pa-4 my-4">@context.Name</MudPaper>
+    </ItemRenderer>
+</MudDropContainer>
+
+<MudButton OnClick="addZone" Variant="Variant.Filled" Color="Color.Primary">Add new zone</MudButton>
+
+<hr />
+
+@code {
+    [Parameter]
+    public Indicator indicator { get; set; }
+
+    [Parameter]
+    public EventCallback<Indicator> indicatorChanged { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            setStats();
+            StateHasChanged();
+        }
+    }
+
+    private void ItemUpdated(MudItemDropInfo<TaskDropItem> dropItem)
+    {
+        dropItem.Item.InZone = dropItem.DropzoneIdentifier;
+        indicatorChanged.InvokeAsync(indicator);
+        setStats();
+    }
+
+    async Task addZone()
+    {
+        string newZoneId = "0";
+        if (indicator.Zones.Count > 0) newZoneId = (int.Parse(indicator.Zones.MaxBy(x => x.Id).Id) + 1).ToString();
+        //indicator.Zones.Add(new TaskDropZone("New zone", newZoneId));
+
+        var parameters = new DialogParameters { };
+
+        var dialog = await DialogService.ShowAsync<NewZoneDialog>("Create new zone", parameters);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            string newZoneName = result.Data.ToString();
+            if (newZoneName != null && newZoneName != "")
+            {
+                indicator.Zones.Add(new TaskDropZone(newZoneName, newZoneId));
+            }
+        }
+
+        indicatorChanged.InvokeAsync(indicator);
+        setStats();
+    }
+
+
+    public void delZone(string id)
+    {
+        indicator.Zones.RemoveAll(x => x.Id == id);
+        indicator.Items.RemoveAll(x => x.InZone == id);
+        indicatorChanged.InvokeAsync(indicator);
+        setStats();
+    }
+
+    async Task addItem(string zoneId){
+        int newItemId = 0;
+        if (indicator.Items.Count > 0) { newItemId = indicator.Items.MaxBy(x => x.Id).Id + 1; }
+        updateItem(new TaskDropItem("", zoneId, 1, newItemId));
+    }
+
+    async Task updateItem(TaskDropItem item){
+        var parameters = new DialogParameters { ["item"] = item };
+
+        var dialog = await DialogService.ShowAsync<ItemDialog>("Edit card", parameters);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            TaskDropItem newItem = JsonConvert.DeserializeObject<TaskDropItem>(result.Data.ToString());
+            if (indicator.Zones.Any(zone => zone.Id == newItem.InZone))
+            {
+                editItem(newItem);
+            }
+            else
+            {
+                indicator.Items.RemoveAll(x => x.Id == newItem.Id);
+            }
+
+            indicatorChanged.InvokeAsync(indicator);
+            setStats();
+        }
+    }
+
+    public void editItem(TaskDropItem newItem){
+        if (indicator.Items.Any(item => item.Id == newItem.Id))
+        {
+            indicator.Items.Where(item => item.Id == newItem.Id).ToList().ForEach(item => item = newItem);
+        }
+        else
+        {
+            indicator.Items.Add(newItem);
+        }
+    }
+
+    ////////////////////////////////////////////::
+
+    public void setStats(){
+        List<string> labels = new List<string>();
+        List<double> data = new List<double>();
+
+        List<string> zoneIds = indicator.Zones.Select(c => c.Id).ToList();
+
+        foreach(string id in zoneIds){
+            labels.Add(indicator.Zones.Where(z => z.Id == id).ToList().First().Name);
+            data.Add(indicator.Items.Count(item => item.InZone == id));
+        }
+
+        indicator.Labels = labels.ToArray();
+        indicator.Data = data.ToArray();
+    }
+}

@@ -1,0 +1,56 @@
+﻿@page "/"
+
+@*This is a bit disgusting*@
+<MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_theme" />
+
+<div style="left:0; right:0; top:0; background-color: cadetblue; position:absolute;">
+    <MudToolBar>
+        <h3 style="color:snow;">Group 7 Custom KPI Tool</h3>
+        <MudSpacer />
+        <MudSwitch @bind-Checked="@_isDarkMode" Color="Color.Primary" Class="ma-4" T="bool" Label="Toggle Light/Dark Mode" />
+        <MudIconButton Icon="@Icons.Material.Outlined.Add" OnClick="addIndicator"/>
+    </MudToolBar>
+</div>
+
+<div style="height:75px;"></div>
+
+@if (indicators != null)
+{
+    @foreach (var indicator in indicators)
+    {
+        <TaskList indicator="@indicator" indicatorChanged="@((Indicator ind) => indicatorChangedHandler(ind))"></TaskList>
+    }
+}
+
+@code {
+    private MudTheme _theme = new();
+    private bool _isDarkMode = true;
+
+    public bool summarize = false;
+    public List<Indicator> indicators = JsonConvert.DeserializeObject<List<Indicator>>(File.ReadAllText("Data/data.json"));
+
+    void indicatorChangedHandler(Indicator ind){
+        indicators.Where(indicator => indicator.Id == ind.Id).ToList().ForEach(indicator => indicator = ind);
+        File.WriteAllText("Data/data.json", JsonConvert.SerializeObject(indicators));
+    }
+
+    async Task addIndicator(){
+        var parameters = new DialogParameters {};
+
+        var dialog = await DialogService.ShowAsync<NewIndicatorDialog>("Create new indicator", parameters);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            string newIndName = result.Data.ToString();
+            if (newIndName != null && newIndName != "")
+            {
+                int newIndId = 0;
+                if (indicators.Count > 0) { newIndId = indicators.MaxBy(x => x.Id).Id + 1; }
+                indicators.Add(new Indicator(newIndName, newIndId));
+            }
+        }
+
+        File.WriteAllText("Data/data.json", JsonConvert.SerializeObject(indicators));
+    }
+}

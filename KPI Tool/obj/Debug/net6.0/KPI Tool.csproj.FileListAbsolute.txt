@@ -1,0 +1,42 @@
+C:\Dev\KPI Tool\KPI Tool\bin\Debug\net6.0\appsettings.Development.json
+C:\Dev\KPI Tool\KPI Tool\bin\Debug\net6.0\appsettings.json
+C:\Dev\KPI Tool\KPI Tool\bin\Debug\net6.0\Data\data.json
+C:\Dev\KPI Tool\KPI Tool\bin\Debug\net6.0\KPI Tool.staticwebassets.runtime.json
+C:\Dev\KPI Tool\KPI Tool\bin\Debug\net6.0\KPI Tool.exe
+C:\Dev\KPI Tool\KPI Tool\bin\Debug\net6.0\KPI Tool.deps.json
+C:\Dev\KPI Tool\KPI Tool\bin\Debug\net6.0\KPI Tool.runtimeconfig.json
+C:\Dev\KPI Tool\KPI Tool\bin\Debug\net6.0\KPI Tool.dll
+C:\Dev\KPI Tool\KPI Tool\bin\Debug\net6.0\KPI Tool.pdb
+C:\Dev\KPI Tool\KPI Tool\bin\Debug\net6.0\Microsoft.AspNetCore.Authorization.dll
+C:\Dev\KPI Tool\KPI Tool\bin\Debug\net6.0\Microsoft.AspNetCore.Components.dll
+C:\Dev\KPI Tool\KPI Tool\bin\Debug\net6.0\Microsoft.AspNetCore.Components.Forms.dll
+C:\Dev\KPI Tool\KPI Tool\bin\Debug\net6.0\Microsoft.AspNetCore.Components.Web.dll
+C:\Dev\KPI Tool\KPI Tool\bin\Debug\net6.0\Microsoft.AspNetCore.Metadata.dll
+C:\Dev\KPI Tool\KPI Tool\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Dev\KPI Tool\KPI Tool\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Dev\KPI Tool\KPI Tool\bin\Debug\net6.0\Microsoft.JSInterop.dll
+C:\Dev\KPI Tool\KPI Tool\bin\Debug\net6.0\MudBlazor.dll
+C:\Dev\KPI Tool\KPI Tool\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Dev\KPI Tool\KPI Tool\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\Dev\KPI Tool\KPI Tool\bin\Debug\net6.0\System.IO.Pipelines.dll
+C:\Dev\KPI Tool\KPI Tool\obj\Debug\net6.0\KPI Tool.csproj.AssemblyReference.cache
+C:\Dev\KPI Tool\KPI Tool\obj\Debug\net6.0\KPI Tool.GeneratedMSBuildEditorConfig.editorconfig
+C:\Dev\KPI Tool\KPI Tool\obj\Debug\net6.0\KPI Tool.AssemblyInfoInputs.cache
+C:\Dev\KPI Tool\KPI Tool\obj\Debug\net6.0\KPI Tool.AssemblyInfo.cs
+C:\Dev\KPI Tool\KPI Tool\obj\Debug\net6.0\KPI Tool.csproj.CoreCompileInputs.cache
+C:\Dev\KPI Tool\KPI Tool\obj\Debug\net6.0\KPI Tool.MvcApplicationPartsAssemblyInfo.cache
+C:\Dev\KPI Tool\KPI Tool\obj\Debug\net6.0\KPI Tool.RazorAssemblyInfo.cache
+C:\Dev\KPI Tool\KPI Tool\obj\Debug\net6.0\KPI Tool.RazorAssemblyInfo.cs
+C:\Dev\KPI Tool\KPI Tool\obj\Debug\net6.0\staticwebassets.build.json
+C:\Dev\KPI Tool\KPI Tool\obj\Debug\net6.0\staticwebassets.development.json
+C:\Dev\KPI Tool\KPI Tool\obj\Debug\net6.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
+C:\Dev\KPI Tool\KPI Tool\obj\Debug\net6.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
+C:\Dev\KPI Tool\KPI Tool\obj\Debug\net6.0\scopedcss\bundle\KPI Tool.styles.css
+C:\Dev\KPI Tool\KPI Tool\obj\Debug\net6.0\scopedcss\projectbundle\KPI Tool.bundle.scp.css
+C:\Dev\KPI Tool\KPI Tool\obj\Debug\net6.0\KPI Tool.csproj.CopyComplete
+C:\Dev\KPI Tool\KPI Tool\obj\Debug\net6.0\KPI Tool.dll
+C:\Dev\KPI Tool\KPI Tool\obj\Debug\net6.0\refint\KPI Tool.dll
+C:\Dev\KPI Tool\KPI Tool\obj\Debug\net6.0\KPI Tool.pdb
+C:\Dev\KPI Tool\KPI Tool\obj\Debug\net6.0\KPI Tool.genruntimeconfig.cache
+C:\Dev\KPI Tool\KPI Tool\obj\Debug\net6.0\ref\KPI Tool.dll
+C:\Dev\KPI Tool\KPI Tool\bin\Debug\net6.0\Data\data_save.json
